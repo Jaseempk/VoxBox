@@ -10,6 +10,8 @@ contract VoxBoxTest is Test {
     address owner;
     address voter1;
     address voter2;
+    address voter3;
+    address voter4;
 
     function setUp() public {
         owner = address(this); // Test contract is the owner
@@ -152,10 +154,44 @@ contract VoxBoxTest is Test {
         voxBox.vote(1);
     }
 
+    function testSelectingSingleWinner() public {
+        registerVoter(voter1);
+        registerVoter(voter2);
+        registerVoter(voter3);
 
+        addCandidate("Alice");
+        addCandidate("Bob");
 
+        vote(voter1, 1); // Alice receives one vote
+        vote(voter2, 2); // Bob receives one vote
+        vote(voter3, 2); // Bob receives another vote, now leading
 
+        VoxBox.Candidate[] memory winners = voxBox.getWinners();
+        assertEq(winners.length, 1, "There should be one winner");
+        assertEq(winners[0].id, 2, "Winner should be candidate 2 (Bob)");
+        assertEq(winners[0].name, "Bob", "Winner's name should be Bob");
+    }
+    function testSelectingWinnersInCaseOfTie() public {
+        registerVoter(voter1);
+        registerVoter(voter2);
 
+        addCandidate("Alice");
+        addCandidate("Bob");
+
+        vote(voter1, 1); // Alice receives one vote
+        vote(voter2, 2); // Bob receives one vote
+
+        VoxBox.Candidate[] memory winners = voxBox.getWinners();
+        assertEq(winners.length, 2, "There should be two winners in a tie");
+        assertEq(winners[0].id, 1, "First winner should be candidate 1 (Alice)");
+        assertEq(winners[1].id, 2, "Second winner should be candidate 2 (Bob)");
+    }
+    function testSelectingWinnersWithNoVotes() public {
+        testSelectingSingleWinner();
+
+        VoxBox.Candidate[] memory winners = voxBox.getWinners();
+        assertEq(winners.length, 1, "There should be no winners if no votes are cast");
+    }
 
 
 }
