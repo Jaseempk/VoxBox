@@ -1,3 +1,22 @@
+## VoxBox: Decentralized Voting System
+
+**Overview**
+
+VoxBox is a decentralized voting system implemented as a smart contract on the Ethereum blockchain. Designed with a focus on security and gas efficiency, VoxBox enables transparent and fair voting processes, featuring voter registration, candidate addition, vote delegation, and efficient winner determination.
+
+**Features**
+
+-  **Voting Period Control**: Voting is restricted within a specified time frame.
+-  **Voter Registration**: Users can register to vote during the active voting period.
+-  **Candidate Management**: The contract owner can add candidates to the ballot.
+-  **Vote Delegation**: Voters can delegate their votes to other registered voters.
+-  **Efficient Winner Determination**: Utilizes dynamic tracking of leading candidates to determine election winners.
+-  **Transparency and Security**: Built on Ethereum for a transparent, secure, and immutable voting process.
+-  **Custom Error Handling**: Improved clarity and gas savings through custom error messages.
+
+
+
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
