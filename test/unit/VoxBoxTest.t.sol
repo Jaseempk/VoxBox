@@ -22,21 +22,6 @@ contract VoxBoxTest is Test {
         voter2 = address(0x2);
     }
 
-    function registerVoter(address voter) internal {
-        vm.prank(voter);
-        voxBox.registerVoter();
-    }
-
-    function addCandidate(string memory name) internal {
-        vm.prank(owner);
-        voxBox.addCandidate(name);
-    }
-
-    function vote(address voter, uint256 candidateId) internal {
-        vm.prank(voter);
-        voxBox.vote(candidateId);
-    }
-
     function testSetVotingPeriod() public {
         uint32 newStartTime = uint32(block.timestamp);
         uint32 newEndTime = uint32(block.timestamp + 2 weeks);
@@ -151,11 +136,5 @@ contract VoxBoxTest is Test {
         vm.prank(voter1);
         voxBox.vote(1);
     }
-
-
-
-
-
-
 
 }
